@@ -1032,16 +1032,8 @@
 #if ENABLED(ASSISTED_TRAMMING)
 
   // Define positions for probe points.
-  #if defined(U20) || defined(LK1)
-    #define MAX_THR_X 260 // X 265 may not be reachable by a probe on the left (U20)
-    #define TRAMMING_POINT_XY { {  30, 30 }, { MAX_THR_X,  30 }, { MAX_THR_X, 275 }, { 30, 275 } }
-  #elif defined(U30) || defined(LK2) || defined(LK4)
-    #define MAX_THR_X 180 // X 185 may not be reachable by a probe on the left (U30)
-    #define TRAMMING_POINT_XY { {  30, 15 }, { MAX_THR_X,  15 }, { MAX_THR_X, 185 }, { 30, 185 } }
-  #else
-    // Please adjust for the U20+ (computed from U20 + 10cm)
-    #define TRAMMING_POINT_XY { {  30, 30 }, { 360,  30 }, { 360, 375 }, { 30, 375 } }
-  #endif
+  #define MAX_THR_X 270 // X 265 may not be reachable by a probe on the left (U20)
+  #define TRAMMING_POINT_XY { {  30, 30 }, { MAX_THR_X,  30 }, { MAX_THR_X, 275 }, { 30, 275 } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"

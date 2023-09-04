@@ -81,7 +81,7 @@
 
 // Valid submodels: U20, U20_PLUS, U30, LK1, LK1_PLUS, LK2, and LK4
 
-//#define U20
+#define U20
 //#define U20_PLUS
 //#define U30
 //#define LK1
@@ -92,7 +92,7 @@
 // Valid touchscreens: TS_V11, TS_V12, and TS_V19 (2019). Select none for user-calibration.
 
 //#define TS_V11
-//#define TS_V12
+#define TS_V12
 //#define TS_V19
 
 // 2 - Select the screen controller type. Most common is ILI9341 - First option. If your screen remains white,
@@ -107,7 +107,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "tpruvot"// Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "tpruvot bmoermans"// Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -183,21 +183,7 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "3D Printer"
-#ifdef U20
-  #define CUSTOM_MACHINE_NAME "Alfawise U20"
-#elif defined(U30)
-  #define CUSTOM_MACHINE_NAME "Alfawise U30"
-#elif defined(U20_PLUS)
-  #define CUSTOM_MACHINE_NAME "Alfawise U20+"
-#elif defined(LK1)
-  #define CUSTOM_MACHINE_NAME "Longer3D LK1"
-#elif defined(LK1_PLUS)
-  #define CUSTOM_MACHINE_NAME "Longer3D LK1+"
-#elif defined(LK2)
-  #define CUSTOM_MACHINE_NAME "Longer3D LK2"
-#elif defined(LK4)
-  #define CUSTOM_MACHINE_NAME "Longer3D LK4"
-#endif
+#define CUSTOM_MACHINE_NAME "Alfawise U20"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -823,26 +809,10 @@
   //#define DEFAULT_bedKi .023
   //#define DEFAULT_bedKd 305.4
 
-  #if ANY(U30, LK2, LK4)
-    // From M303 command for Alfawise U30
-    #define DEFAULT_bedKp 338.46
-    #define DEFAULT_bedKi 63.96
-    #define DEFAULT_bedKd 447.78
-
-  #elif ANY(U20, LK1)
-    // From M303 command for Alfawise U20
-    #define DEFAULT_bedKp 841.68
-    #define DEFAULT_bedKi 152.12
-    #define DEFAULT_bedKd 1164.25
-
-  #elif ANY(U20_PLUS, LK1_PLUS)
-    // These PID setting MUST be updated.
-    // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
-    #define DEFAULT_bedKp 841.68
-    #define DEFAULT_bedKi 152.12
-    #define DEFAULT_bedKd 1164.25
-  #endif
-
+  // Parametter for Alfawise U20
+  #define DEFAULT_bedKp 841.68
+  #define DEFAULT_bedKi 152.12
+  #define DEFAULT_bedKd 1164.25
 #endif // PIDTEMPBED
 
 //===========================================================================
@@ -1138,7 +1108,7 @@
 //#define USE_WMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
-//#define ENDSTOPPULLUPS
+#define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
   // Disable ENDSTOPPULLUPS to set pullups individually
   //#define ENDSTOPPULLUP_XMIN
@@ -1570,7 +1540,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -35, -6, -0.92 }
+#define NOZZLE_TO_PROBE_OFFSET { -29, -22, 4 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1647,8 +1617,8 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE   15 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  10 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
@@ -1674,10 +1644,10 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-//#define PROBING_HEATERS_OFF       // Turn heaters off when probing
+#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-  //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
-  //#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
+  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+  #define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
 #define PROBING_FANS_OFF            // Turn fans off when probing
 #define PROBING_ESTEPPERS_OFF       // Turn all extruder steppers off when probing
@@ -1781,20 +1751,9 @@
 // @section geometry
 
 // The size of the printable area
-
-#if ANY(U30, LK2, LK4)
-#define X_BED_SIZE 220
-#define Y_BED_SIZE 220
-#define Z_MAX_POS  250
-#elif ANY(U20, LK1)
 #define X_BED_SIZE 300
 #define Y_BED_SIZE 300
 #define Z_MAX_POS  400
-#elif ANY(U20_PLUS, LK1_PLUS)
-#define X_BED_SIZE 400
-#define Y_BED_SIZE 400
-#define Z_MAX_POS  500
-#endif
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -2473,7 +2432,7 @@
  *
  * View the current statistics with M78.
  */
-//#define PRINTCOUNTER
+#define PRINTCOUNTER
 #if ENABLED(PRINTCOUNTER)
   #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print. A value of 0 will save stats at end of print.
 #endif
@@ -2527,7 +2486,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'de':'German', 'el':'Greek (Greece)', 'el_CY':'Greek (Cyprus)', 'es':'Spanish', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'gl':'Galician', 'hr':'Croatian', 'hu':'Hungarian', 'it':'Italian', 'jp_kana':'Japanese', 'ko_KR':'Korean (South Korea)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Traditional)' }
  */
-#define LCD_LANGUAGE en
+#define LCD_LANGUAGE fr
 
 /**
  * LCD Character Set
@@ -3470,7 +3429,7 @@
  * Set this manually if there are extra servos needing manual control.
  * Set to 0 to turn off servo support.
  */
-//#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
+#define NUM_SERVOS 1 // Note: Servo index starts with 0 for M280-M282 commands
 
 // (ms) Delay before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
