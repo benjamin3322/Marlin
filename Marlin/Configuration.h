@@ -3250,10 +3250,10 @@
 
   #elif ENABLED(TS_V12)
     // Alfawise U30 ILI9341 2.8 TP Ver 1.2 / Blue PCB on the back of touchscreen
-    #define TOUCH_CALIBRATION_X  12000
-    #define TOUCH_CALIBRATION_Y -9000
-    #define TOUCH_OFFSET_X      -43
-    #define TOUCH_OFFSET_Y       257
+    #define TOUCH_CALIBRATION_X  -11953
+    #define TOUCH_CALIBRATION_Y 8741
+    #define TOUCH_OFFSET_X      343
+    #define TOUCH_OFFSET_Y       -19
 
   #elif ENABLED(TS_V19)
     // Longer LK4/U30 2.8" Ver 2019 / Blue PCB, SID240x320-8PCB-D
@@ -3266,7 +3266,7 @@
   //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
 
   #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
-    //#define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
+    #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
   #endif
 
   #if ENABLED(TFT_COLOR_UI)
